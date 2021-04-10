@@ -38,5 +38,18 @@ pipeline {
           sh 'java -jar ~/myapp.jar'
 			}
 		}
+		
+		stage('Sanity check') {
+          steps {
+                input "Does the Staging environment look ok?"
+            }
+        }
+		
+		stage('Production - Deploy') { 
+		  steps{
+          sh 'cp target/*jar ~/myapp.jar'
+          sh 'java -jar ~/myapp.jar'
+			}
+		}
   }
 }
