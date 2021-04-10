@@ -21,8 +21,8 @@ pipeline {
        
 	    stage('QA - Deploy') { 
 		  steps{
-          sh 'sudo cp target/*jar ~/myapp.jar'
-          sh 'sudo java -jar ~/myapp.jar'
+          sh 'cp target/*jar ~/myapp.jar'
+          sh 'java -jar ~/myapp.jar'
 			}
 		}
 	 
@@ -34,8 +34,8 @@ pipeline {
 		
 		stage('Staging - Deploy') { 
 		  steps{
-          sh 'sudo cp target/*jar ~/myapp.jar'
-          sh 'sudo java -jar ~/myapp.jar'
+          sh 'cp target/*jar ~/myapp.jar'
+          sh 'java -jar ~/myapp.jar'
 			}
 		}
   }
