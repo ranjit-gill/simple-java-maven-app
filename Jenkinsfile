@@ -16,5 +16,10 @@ pipeline {
                 }
             }
         }
+      stage('Deploy')
+      steps{
+          sh 'sudo cp target/*jar ~/myapp.jar
+          sh 'sudo java -jar ~/myapp.jar
+      }
    }
 }
