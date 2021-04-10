@@ -1,12 +1,14 @@
 pipeline {
   agent { node { label 'linux-node-1' } }
     stages {
-        stage('Build') {
+        
+		stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage('Test') {
+        
+		stage('Test') {
             steps {
                 sh 'mvn test'
             }
@@ -16,11 +18,25 @@ pipeline {
                 }
             }
         }
-      stage('Deploy') { 
-      steps{
-          sh 'cp target/*jar ~/myapp.jar'
-          sh 'java -jar ~/myapp.jar'
+       
+	    stage('QA - Deploy') { 
+		  steps{
+          sh 'sudo cp target/*jar ~/myapp.jar'
+          sh 'sudo java -jar ~/myapp.jar'
+			}
+		}
+	 
+		stage('Sanity check') {
+          steps {
+                input "Does the QA environment look ok?"
+            }
         }
-	 }
+		
+		stage('Staging - Deploy') { 
+		  steps{
+          sh 'sudo cp target/*jar ~/myapp.jar'
+          sh 'sudo java -jar ~/myapp.jar'
+			}
+		}
   }
 }
